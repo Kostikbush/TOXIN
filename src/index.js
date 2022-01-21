@@ -1,1 +1,2 @@
-import "./style.css";
+import "./style/main.scss";
+import './img/White.png';

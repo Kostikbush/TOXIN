@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: 'development',
@@ -15,13 +17,18 @@ module.exports = {
     plugins: [new HtmlWebpackPlugin({
         template: "./src/index.pug",
         filename: "./index.html"
-    })],
+    }),
+    new MiniCssExtractPlugin(),
+    new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jquery': 'jquery'
+    }),
+
+    ],
+
     module: {
         rules: [
-            {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
-            },
             {
                 test: /\.pug$/,
                 loader: 'pug-loader',
@@ -36,6 +43,18 @@ module.exports = {
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
+                generator: {
+                    filename: 'dist/[hash][ext]'
+                }
+            },
+            {
+                test: /\.((c|sa|sc)ss)$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader'
+                ],
             },
         ],
     },

@@ -1,0 +1,14 @@
+@import "color";
+@import "fonts";
+
+h1 {
+    color: $base-color;
+    font-family: Montserrat;
+    font-weight: normal;
+}
+.p__main {
+    color: $text-color;
+    font-family: Montserrat;
+    font-weight: normal;
+    color: aqua;
+}
